@@ -1,0 +1,896 @@
+.container {
+  height: 100vh;
+  overflow: hidden;
+
+  background: #f4f6f8;
+  color: #111827;
+}
+
+/* =========================
+   Header
+========================= */
+
+.header {
+  height: 60px;
+  box-sizing: border-box;
+
+  padding: 0 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: white;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.bookTitle {
+  font-size: 14px;
+  color: #374151;
+}
+
+.backButton {
+  border: none;
+  background: transparent;
+
+  font-size: 14px;
+  color: #6b7280;
+
+  cursor: pointer;
+}
+
+.backButton:hover {
+  color: #111827;
+}
+
+/* =========================
+   Reader Layout
+========================= */
+
+.reader {
+  height: calc(100vh - 60px);
+
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 460px;
+
+  overflow: hidden;
+}
+
+/* =========================
+   PDF
+========================= */
+
+.pdfSection {
+  min-width: 0;
+  min-height: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  overflow: hidden;
+}
+
+.pdfArea {
+  flex: 1;
+  min-height: 0;
+
+  overflow: auto;
+
+  padding: 24px 28px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pdfPage {
+  max-width: 100%;
+  max-height: 100%;
+
+  background: white;
+
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.08),
+    0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* =========================
+   PDF Loading / Error
+========================= */
+
+.pdfLoading,
+.pdfError {
+  width: min(700px, 100%);
+  min-height: 320px;
+  max-height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: white;
+  color: #6b7280;
+
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+}
+
+.pdfError {
+  color: #dc2626;
+}
+
+/* =========================
+   Rendered PDF Pages
+========================= */
+
+.visiblePage {
+  display: block;
+  max-width: 100%;
+  background: white;
+}
+
+.visiblePage :global(.react-pdf__Page__canvas) {
+  display: block;
+  max-width: 100%;
+  height: auto !important;
+}
+
+.hiddenRenderedPage {
+  position: absolute;
+
+  left: -10000px;
+  top: 0;
+
+  pointer-events: none;
+}
+
+/* =========================
+   Page Controls
+========================= */
+
+.controls {
+  height: 56px;
+  min-height: 56px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 24px;
+
+  background: white;
+  border-top: 1px solid #e5e7eb;
+}
+
+.pageButton {
+  min-width: 120px;
+
+  padding: 9px 16px;
+
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+
+  background: white;
+  color: #374151;
+
+  cursor: pointer;
+
+  font-size: 14px;
+}
+
+.pageButton:hover:not(:disabled) {
+  background: #f3f4f6;
+}
+
+.pageButton:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.pageNumber {
+  min-width: 80px;
+
+  text-align: center;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* =========================
+   Sidebar
+========================= */
+
+.sidebar {
+  min-height: 0;
+
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  background: white;
+  border-left: 1px solid #e5e7eb;
+}
+
+.sidebarSection {
+  flex-shrink: 0;
+  padding: 20px 22px;
+
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.aiSidebarSection {
+  flex: 1;
+  min-height: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  border-bottom: none;
+  overflow: hidden;
+}
+
+.sidebarTitle {
+  margin: 0 0 14px;
+
+  font-size: 17px;
+  font-weight: 600;
+}
+
+/* =========================
+   Reading Progress
+========================= */
+
+.infoRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 14px;
+
+  font-size: 14px;
+}
+
+.progressBar {
+  width: 100%;
+  height: 8px;
+
+  overflow: hidden;
+
+  background: #e5e7eb;
+
+  border-radius: 999px;
+}
+
+.progress {
+  height: 100%;
+
+  background: #2563eb;
+
+  border-radius: 999px;
+
+  transition: width 0.2s ease;
+}
+
+.progressText {
+  margin-top: 8px;
+
+  text-align: right;
+
+  color: #6b7280;
+  font-size: 13px;
+}
+
+/* =========================
+   Memo
+========================= */
+
+.memo {
+  box-sizing: border-box;
+
+  width: 100%;
+  min-height: 112px;
+
+  padding: 12px;
+
+  resize: none;
+
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+
+  outline: none;
+
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.memo:focus {
+  border-color: #2563eb;
+}
+
+.memo:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+.saveButton {
+  width: 100%;
+
+  margin-top: 12px;
+  padding: 11px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: #2563eb;
+  color: white;
+
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.saveButton:hover:not(:disabled) {
+  background: #1d4ed8;
+}
+
+.saveButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.memoMessage {
+  margin: 10px 0 0;
+
+  text-align: center;
+
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* =========================
+   AI Assistant
+========================= */
+
+.aiButton {
+  width: 100%;
+
+  margin-bottom: 9px;
+  padding: 11px 12px;
+
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+
+  background: white;
+  color: #111827;
+
+  text-align: left;
+  font-family: inherit;
+  font-size: 14px;
+
+  cursor: pointer;
+
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.aiButton:hover:not(:disabled) {
+  background: #f9fafb;
+  border-color: #9ca3af;
+}
+
+.aiButton:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+/* =========================
+   AI Tabs
+========================= */
+.aiTabs { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin-bottom: 16px; padding: 4px; border-radius: 10px; background: #f3f4f6; }
+.aiTab { padding: 10px 8px; border: none; border-radius: 7px; background: transparent; color: #6b7280; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; transition: background .15s ease, color .15s ease, box-shadow .15s ease; }
+.aiTab:hover { color: #111827; }
+.aiTabActive { background: white; color: #2563eb; box-shadow: 0 1px 2px rgba(0,0,0,.05), 0 1px 3px rgba(0,0,0,.08); }
+.aiTabContent {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.summaryArea {
+  height: 100%;
+  overflow-y: auto;
+  padding-right: 6px;
+  scrollbar-gutter: stable;
+}
+.aiEmpty { padding: 28px 16px; border: 1px dashed #d1d5db; border-radius: 10px; background: #f9fafb; color: #6b7280; text-align: center; font-size: 13px; line-height: 1.6; }
+
+/* =========================
+   AI Summary
+========================= */
+
+.summaryBox {
+  margin: 4px 0 14px;
+  padding: 14px;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+
+  background: #f9fafb;
+
+  color: #374151;
+
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+.summaryError {
+  margin: 4px 0 14px;
+  padding: 10px 12px;
+
+  border-radius: 8px;
+
+  background: #fef2f2;
+  color: #dc2626;
+
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* =========================
+   AI Question
+========================= */
+
+.questionArea {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.questionHistory {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 6px;
+  scrollbar-gutter: stable;
+}
+
+.questionComposer {
+  flex-shrink: 0;
+  padding-top: 12px;
+  margin-top: 8px;
+  border-top: 1px solid #e5e7eb;
+  background: white;
+}
+
+.questionStatus {
+  margin: 10px 0;
+
+  color: #6b7280;
+
+  font-size: 13px;
+  text-align: center;
+}
+
+.questionItem {
+  margin-bottom: 16px;
+}
+
+.questionItem:last-of-type {
+  margin-bottom: 14px;
+}
+
+/* =========================
+   User Question
+========================= */
+
+.userQuestion {
+  margin-bottom: 8px;
+  padding: 11px 13px;
+
+  border: 1px solid #dbeafe;
+  border-radius: 10px;
+
+  background: #eff6ff;
+  color: #1e3a8a;
+
+  font-size: 14px;
+  line-height: 1.6;
+
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+.userQuestion p {
+  margin: 0;
+}
+
+/* =========================
+   AI Answer
+========================= */
+
+.aiAnswer {
+  padding: 13px 14px;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+
+  background: #f9fafb;
+
+  color: #374151;
+
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+/* =========================
+   Message Label
+========================= */
+
+.messageLabel {
+  margin-bottom: 6px;
+
+  color: #111827;
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.userQuestion .messageLabel {
+  color: #1e40af;
+}
+
+.aiAnswer .messageLabel {
+  color: #111827;
+}
+
+/* =========================
+   Question Input
+========================= */
+
+.questionInput {
+  box-sizing: border-box;
+
+  width: 100%;
+  min-height: 76px;
+  max-height: 140px;
+
+  margin-top: 0;
+  padding: 11px 12px;
+
+  resize: vertical;
+
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+
+  outline: none;
+
+  background: white;
+  color: #111827;
+
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.questionInput::placeholder {
+  color: #9ca3af;
+}
+
+.questionInput:focus {
+  border-color: #2563eb;
+
+  box-shadow: 0 0 0 1px #2563eb;
+}
+
+.questionInput:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+/* =========================
+   Question Send Button
+========================= */
+
+.questionSendButton {
+  width: 100%;
+
+  margin-top: 8px;
+  padding: 10px 12px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: #2563eb;
+  color: white;
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.questionSendButton:hover:not(:disabled) {
+  background: #1d4ed8;
+}
+
+.questionSendButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* =========================
+   Question Error
+========================= */
+
+.questionError {
+  margin: 8px 0;
+  padding: 10px 12px;
+
+  border-radius: 8px;
+
+  background: #fef2f2;
+  color: #dc2626;
+
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* =========================
+   Markdown
+========================= */
+
+.markdownContent {
+  color: #374151;
+
+  font-size: 14px;
+  line-height: 1.7;
+
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+/* Paragraph */
+
+.markdownContent p {
+  margin: 0 0 10px;
+}
+
+.markdownContent p:last-child {
+  margin-bottom: 0;
+}
+
+/* Headings */
+
+.markdownContent h1,
+.markdownContent h2,
+.markdownContent h3 {
+  margin: 18px 0 8px;
+
+  color: #111827;
+
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.markdownContent h1:first-child,
+.markdownContent h2:first-child,
+.markdownContent h3:first-child {
+  margin-top: 0;
+}
+
+.markdownContent h1 {
+  font-size: 18px;
+}
+
+.markdownContent h2 {
+  font-size: 16px;
+}
+
+.markdownContent h3 {
+  font-size: 15px;
+}
+
+/* Lists */
+
+.markdownContent ul,
+.markdownContent ol {
+  margin: 8px 0 12px;
+  padding-left: 22px;
+}
+
+.markdownContent li {
+  margin: 4px 0;
+}
+
+.markdownContent li > p {
+  margin: 0;
+}
+
+/* Strong */
+
+.markdownContent strong {
+  color: #111827;
+  font-weight: 700;
+}
+
+/* Inline Code */
+
+.markdownContent code {
+  padding: 2px 5px;
+
+  border-radius: 4px;
+
+  background: #e5e7eb;
+  color: #111827;
+
+  font-family:
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Monaco,
+    Consolas,
+    monospace;
+
+  font-size: 0.92em;
+}
+
+/* Code Block */
+
+.markdownContent pre {
+  margin: 10px 0;
+  padding: 12px;
+
+  overflow-x: auto;
+
+  border-radius: 8px;
+
+  background: #111827;
+}
+
+.markdownContent pre code {
+  padding: 0;
+
+  background: transparent;
+  color: #f9fafb;
+
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+/* Divider */
+
+.markdownContent hr {
+  margin: 16px 0;
+
+  border: none;
+  border-top: 1px solid #e5e7eb;
+}
+
+/* Quote */
+
+.markdownContent blockquote {
+  margin: 10px 0;
+  padding: 8px 12px;
+
+  border-left: 3px solid #d1d5db;
+
+  background: #f3f4f6;
+  color: #4b5563;
+}
+
+/* =========================
+   Responsive
+========================= */
+
+
+@media (min-width: 1800px) {
+  .reader {
+    grid-template-columns: minmax(0, 1fr) 480px;
+  }
+
+  .pdfArea {
+    padding: 22px 30px;
+  }
+}
+
+@media (max-width: 1100px) {
+  .reader {
+    grid-template-columns: minmax(0, 1fr) 360px;
+  }
+
+  .pdfArea {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 900px) {
+  .reader {
+    grid-template-columns: minmax(0, 1fr) 330px;
+  }
+
+  .sidebarSection {
+    padding: 20px;
+  }
+}
+
+/* Very small desktop/tablet widths: keep the document usable instead of forcing a wide PDF. */
+@media (max-width: 720px) {
+  .container {
+    height: auto;
+    min-height: 100vh;
+    overflow: visible;
+  }
+
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+  }
+
+  .bookTitle {
+    max-width: 42vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .reader {
+    height: auto;
+    min-height: calc(100vh - 60px);
+    display: flex;
+    flex-direction: column;
+    overflow: visible;
+  }
+
+  .pdfSection {
+    height: calc(100vh - 60px);
+    min-height: 560px;
+  }
+
+  .pdfArea {
+    padding: 16px;
+  }
+
+  .sidebar {
+    overflow: visible;
+    border-left: none;
+    border-top: 1px solid #e5e7eb;
+  }
+
+  .sidebarSection {
+    padding: 18px 16px;
+  }
+
+  .aiSidebarSection {
+    min-height: 560px;
+  }
+}
+
+/* =========================
+   PDF Page Cache
+========================= */
+
+.pdfPage {
+  position: relative;
+}
+
+.cachedPage {
+  position: absolute;
+  inset: 0;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: -1;
+}
